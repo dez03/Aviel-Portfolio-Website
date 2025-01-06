@@ -45,6 +45,8 @@ export const getLastPlayed = async (client_id, client_secret, refresh_token) => 
     });
 };
 
+
+//comment to push //todo remove this comment
 // return data
 export default async function getNowPlayingItem(client_id, client_secret, refresh_token) {
   try {
