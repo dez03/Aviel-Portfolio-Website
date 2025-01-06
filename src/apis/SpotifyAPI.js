@@ -3,6 +3,7 @@ import queryString from 'query-string';
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
 
 const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-playing`;
+const LAST_PLAYED_ENDPOINT = 'https://api.spotify.com/v1/me/player/recently-played';
 
 const client_id = import.meta.env.VITE_APP_SPOTIFY_CLIENT_ID
 const client_secret = import.meta.env.VITE_APP_SPOTIFY_CLIENT_SECRET
@@ -28,6 +29,16 @@ const getAccessToken = async () => {
 export const getNowPlaying = async (client_id, client_secret, refresh_token) => {
     const { access_token } = await getAccessToken(client_id, client_secret, refresh_token);
     return fetch(NOW_PLAYING_ENDPOINT, {
+        headers: {
+            Authorization: `Bearer ${access_token}`,
+        }
+    });
+};
+
+// last played endpoint
+export const getLastPlayed = async (client_id, client_secret, refresh_token) => {
+    const { access_token } = await getAccessToken(client_id, client_secret, refresh_token);
+    return fetch(LAST_PLAYED_ENDPOINT, {
         headers: {
             Authorization: `Bearer ${access_token}`,
         }
