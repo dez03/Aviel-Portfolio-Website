@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.circle-gradient {
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(
+    circle,
+    rgba(92, 230, 92, 0.8) 0%,   /* Bright green center */
+    rgba(117, 208, 117, 0.7) 35%, /* Fades to lighter green */
+    rgba(0, 0, 0, 0) 70%       /* Transparent at the edges */
+  );
+  border-radius: 50%; /* Make it circular */
+  pointer-events: none; /* Prevent interactions */
+}
