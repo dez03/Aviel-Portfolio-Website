@@ -63,7 +63,6 @@ const Map = () => {
         cursor: "initial",
         borderRadius: "15px",
         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.5)",
-        margin: "20px auto",
         position: "relative", // Needed for absolute positioning of the message
       }}
     ></div>

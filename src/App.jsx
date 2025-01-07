@@ -5,14 +5,10 @@ import SpotifyDisplay from './components/SpotifyDisplay.jsx';
 export default function App() {
   return (
     <>
-    <div className="p-4">
-      <h1 className="text-2xl font-bold">Home</h1>
-
-      
+    <div className="p-4 flex">
+      <Map />
+      <SpotifyDisplay />
     </div>
-
-    <Map />
-    <SpotifyDisplay />
     </>
   );
 }

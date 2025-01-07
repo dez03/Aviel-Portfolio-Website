@@ -1,77 +1,124 @@
-import queryString from 'query-string';
+import queryString from "query-string";
 
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
-
 const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-playing`;
-const LAST_PLAYED_ENDPOINT = 'https://api.spotify.com/v1/me/player/recently-played';
+const LAST_PLAYED_ENDPOINT = `https://api.spotify.com/v1/me/player/recently-played`;
 
-const client_id = import.meta.env.VITE_APP_SPOTIFY_CLIENT_ID
-const client_secret = import.meta.env.VITE_APP_SPOTIFY_CLIENT_SECRET
-const refresh_token = import.meta.env.VITE_APP_SPOTIFY_REFRESH_TOKEN
+const client_id = import.meta.env.VITE_APP_SPOTIFY_CLIENT_ID;
+const client_secret = import.meta.env.VITE_APP_SPOTIFY_CLIENT_SECRET;
+const refresh_token = import.meta.env.VITE_APP_SPOTIFY_REFRESH_TOKEN;
 
+// Fetch access token using refresh token
 const getAccessToken = async () => {
-    const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
-    const response = await fetch(TOKEN_ENDPOINT, {
-        method: "POST",
-        headers: {
-            Authorization: `Basic ${basic}`,
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: queryString.stringify({
-            grant_type: "refresh_token",
-            refresh_token,
-        }),
-    });
-    return response.json();
-};
-
-// now playing endpoint
-export const getNowPlaying = async (client_id, client_secret, refresh_token) => {
-    const { access_token } = await getAccessToken(client_id, client_secret, refresh_token);
-    return fetch(NOW_PLAYING_ENDPOINT, {
-        headers: {
-            Authorization: `Bearer ${access_token}`,
-        }
-    });
-};
-
-// last played endpoint
-export const getLastPlayed = async (client_id, client_secret, refresh_token) => {
-    const { access_token } = await getAccessToken(client_id, client_secret, refresh_token);
-    return fetch(LAST_PLAYED_ENDPOINT, {
-        headers: {
-            Authorization: `Bearer ${access_token}`,
-        }
-    });
-};
-
-
-//comment to push //todo remove this comment
-// return data
-export default async function getNowPlayingItem(client_id, client_secret, refresh_token) {
   try {
-      const response = await getNowPlaying(client_id, client_secret, refresh_token);
-      if (!response.ok || response.status === 204) { // Handles 204 and other error codes
-          console.error(`Spotify API Error: ${response.status}`);
-          return false;
-      }
-      const song = await response.json();
+    const basic = Buffer.from(`${client_id}:${client_secret}`).toString(
+      "base64"
+    );
+    const response = await fetch(TOKEN_ENDPOINT, {
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${basic}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: queryString.stringify({
+        grant_type: "refresh_token",
+        refresh_token,
+      }),
+    });
 
-      const albumImageUrl = song.item?.album.images[0]?.url || '';
-      const artist = song.item?.artists.map((_artist) => _artist.name).join(', ') || 'Unknown Artist';
-      const isPlaying = song.is_playing;
-      const songUrl = song.item?.external_urls?.spotify || '';
-      const title = song.item?.name || 'Unknown Title';
+    if (!response.ok) {
+      console.error(`Error fetching access token: ${response.status}`);
+      return null;
+    }
 
-      return {
-          albumImageUrl,
-          artist,
-          isPlaying,
-          songUrl,
-          title,
-      };
+    const data = await response.json();
+    return data.access_token;
   } catch (error) {
-      console.error('Error fetching now playing data:', error);
-      return false; // Fallback in case of failure
+    console.error("Error in getAccessToken:", error);
+    return null;
   }
-}
+};
+
+// Fetch now playing data
+export const getNowPlaying = async () => {
+  const access_token = await getAccessToken();
+  if (!access_token) return null;
+
+  const response = await fetch(NOW_PLAYING_ENDPOINT, {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  });
+
+  return response;
+};
+
+// Fetch last played data
+export const getLastPlayed = async () => {
+  const access_token = await getAccessToken();
+  if (!access_token) return null;
+
+  const response = await fetch(LAST_PLAYED_ENDPOINT, {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  });
+
+  return response;
+};
+
+// Parse now playing data
+export const getNowPlayingItem = async () => {
+  try {
+    const response = await getNowPlaying();
+    if (!response.ok || response.status === 204) {
+      console.error(`Spotify API Error (Now Playing): ${response.status}`);
+      return null;
+    }
+
+    const song = await response.json();
+    return {
+      albumImageUrl: song.item?.album.images[0]?.url || "",
+      artist:
+        song.item?.artists.map((artist) => artist.name).join(", ") ||
+        "Unknown Artist",
+      isPlaying: song.is_playing,
+      songUrl: song.item?.external_urls?.spotify || "",
+      title: song.item?.name || "Unknown Title",
+    };
+  } catch (error) {
+    console.error("Error parsing now playing data:", error);
+    return null;
+  }
+};
+
+// Parse last played data
+export const getLastPlayedItem = async () => {
+  try {
+    const response = await getLastPlayed();
+    if (!response.ok) {
+      console.error(`Spotify API Error (Last Played): ${response.status}`);
+      return null;
+    }
+
+    const data = await response.json();
+    const track = data.items?.[0]; // Most recently played track
+
+    if (!track) {
+      console.error("No recently played track found.");
+      return null;
+    }
+
+    return {
+      albumImageUrl: track.track.album?.images[0]?.url || "",
+      artist:
+        track.track.artists.map((artist) => artist.name).join(", ") ||
+        "Unknown Artist",
+      songUrl: track.track.external_urls?.spotify || "",
+      title: track.track.name || "Unknown Title",
+    };
+  } catch (error) {
+    console.error("Error parsing last played data:", error);
+    return null;
+  }
+};

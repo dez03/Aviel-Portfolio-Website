@@ -1,85 +1,103 @@
-import React, { useEffect, useState } from 'react';
-import SpotifyLogo from '../assets/SpotifyLogo.png';
-import getNowPlayingItem from '../apis/SpotifyAPI.js';
+import React, { useEffect, useState } from "react";
+import { getNowPlayingItem, getLastPlayedItem } from "../apis/SpotifyAPI";
+import SpotifyLogo from "../assets/SpotifyLogo.png";
 
-function SpotifyDisplay() {
+const SpotifyDisplay = () => {
   const [song, setSong] = useState(null);
-  const [loading, setLoading] = useState(true); // Added loading state
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     let intervalId;
 
     async function fetchSong() {
-      setLoading(true); // Set loading state to true while fetching
+      setLoading(true);
+      setError(null);
       try {
-        const data = await getNowPlayingItem(
-          import.meta.env.VITE_APP_SPOTIFY_CLIENT_ID,
-          import.meta.env.VITE_APP_SPOTIFY_CLIENT_SECRET,
-          import.meta.env.VITE_APP_SPOTIFY_REFRESH_TOKEN
-        );
-        setSong(data);
+        // First try to get currently playing song
+        const nowPlaying = await getNowPlayingItem();
+
+        if (nowPlaying && nowPlaying.isPlaying) {
+          setSong(nowPlaying);
+        } else {
+          // Fallback to last played song
+          const lastPlayed = await getLastPlayedItem();
+          setSong(lastPlayed);
+        }
       } catch (error) {
-        console.error('Error fetching song:', error);
+        console.error("Error fetching song:", error);
+        setError("Failed to fetch song data");
       } finally {
-        setLoading(false); // Set loading to false after fetch completes
+        setLoading(false);
       }
     }
-    fetchSong();
 
-    // Setting up polling to fetch data every 10 seconds (change to 2 minutes)
-    intervalId = setInterval(fetchSong, 10000);
+    fetchSong();
+    intervalId = setInterval(fetchSong, 60000); // Poll every minute
+
+    return () => clearInterval(intervalId);
   }, []);
 
   if (loading) {
     return (
-      <div className="flex p-2 w-fit items-center justify-center text-gray text-base">
-        <img className="w-fit p-1 object-contain h-fit" src={SpotifyLogo} alt="Spotify Logo" />
-        <p className="tracking-wider px-1 text-base text-left">Loading...</p>
+      <div className="flex flex-col items-center justify-center w-[250px] h-80 bg-gray-800 border border-gray-600 rounded-lg">
+        <img
+          className="w-10 h-10 mb-2 animate-spin"
+          src={SpotifyLogo}
+          alt="Spotify Logo"
+        />
+        <p className="text-gray-300 text-sm tracking-wider">Loading...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center w-[250px] h-80 bg-gray-800 border border-gray-600 rounded-lg">
+        <img className="w-10 h-10 mb-2" src={SpotifyLogo} alt="Spotify Logo" />
+        <p className="text-gray-300 text-sm tracking-wider">{error}</p>
       </div>
     );
   }
 
   if (!song) {
-    return <div>No song currently playing or an error occurred.</div>;
+    return (
+      <div className="flex flex-col items-center justify-center w-[250px] h-80 bg-gray-800 border border-gray-600 rounded-lg">
+        <img className="w-10 h-10 mb-2" src={SpotifyLogo} alt="Spotify Logo" />
+        <p className="text-gray-300 text-sm tracking-wider">
+          No song currently playing
+        </p>
+      </div>
+    );
   }
 
   return (
-    <div className="flex min-w-md w-[250px] h-80 items-center justify-center text-base border rounded-lg border-gray-dark bg-gray-dark font-GT_Flexa">
-      {song.isPlaying ? (
-        <div className="w-fit h-full py-2 flex flex-col text-left justify-around">
-          <div className="w-full h-fit relative">
-            <img
-              className="w-fit h-6 p-1 object-contain absolute -rotate-45 z-10"
-              src={SpotifyLogo}
-              alt="Spotify Logo"
-            />
-            <img
-              className="w-fit h-fit rounded-lg"
-              src={song.albumImageUrl}
-              alt="Album Cover"
-            />
-          </div>
-          <div className="flex flex-col text-left">
-            <div>
-              <a
-                className="px-1 text-left underline"
-                href={song.songUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {song.title}
-              </a>
-            </div>
-            <div>
-              <p className="px-1 text-left">{song.artist}</p>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <p>I am not listening to music right now!</p>
-      )}
+    <div className="flex flex-col w-[250px] h-80 bg-gray-800 border border-gray-600 rounded-lg overflow-hidden">
+      <div className="relative w-full">
+        <img
+          className="w-6 h-6 absolute top-2 left-2 -rotate-45 z-10"
+          src={SpotifyLogo}
+          alt="Spotify Logo"
+        />
+        <img
+          className="w-full h-48 object-cover"
+          src={song.albumImageUrl}
+          alt={`${song.title} album cover`}
+        />
+      </div>
+      <div className="flex flex-col justify-center items-center flex-1 p-4 text-center">
+        <a
+          className="text-gray-300 hover:text-white font-medium truncate w-full mb-1"
+          href={song.songUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {song.title}
+        </a>
+        <p className="text-gray-400 text-sm truncate w-full">{song.artist}</p>
+      </div>
     </div>
   );
-}
+};
 
 export default SpotifyDisplay;
