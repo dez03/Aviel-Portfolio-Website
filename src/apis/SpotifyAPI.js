@@ -85,6 +85,7 @@ export const getNowPlayingItem = async () => {
       isPlaying: song.is_playing,
       songUrl: song.item?.external_urls?.spotify || "",
       title: song.item?.name || "Unknown Title",
+      message: "Currently playing",
     };
   } catch (error) {
     console.error("Error parsing now playing data:", error);
@@ -116,6 +117,7 @@ export const getLastPlayedItem = async () => {
         "Unknown Artist",
       songUrl: track.track.external_urls?.spotify || "",
       title: track.track.name || "Unknown Title",
+      message: "Last played",
     };
   } catch (error) {
     console.error("Error parsing last played data:", error);

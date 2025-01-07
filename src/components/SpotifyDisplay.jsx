@@ -38,6 +38,7 @@ const SpotifyDisplay = () => {
     return () => clearInterval(intervalId);
   }, []);
 
+  // if loading, display loading message
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center w-[250px] h-80 bg-gray-800 border border-gray-600 rounded-lg">
@@ -51,6 +52,7 @@ const SpotifyDisplay = () => {
     );
   }
 
+  // If there is an error or no song is playing
   if (error) {
     return (
       <div className="flex flex-col items-center justify-center w-[250px] h-80 bg-gray-800 border border-gray-600 rounded-lg">
@@ -59,7 +61,7 @@ const SpotifyDisplay = () => {
       </div>
     );
   }
-
+  // If there is an error or no song is playing
   if (!song) {
     return (
       <div className="flex flex-col items-center justify-center w-[250px] h-80 bg-gray-800 border border-gray-600 rounded-lg">
@@ -72,18 +74,26 @@ const SpotifyDisplay = () => {
   }
 
   return (
-    <div className="flex flex-col w-[250px] h-80 bg-gray-800 border border-gray-600 rounded-lg overflow-hidden">
-      <div className="relative w-full">
-        <img
-          className="w-6 h-6 absolute top-2 left-2 -rotate-45 z-10"
-          src={SpotifyLogo}
-          alt="Spotify Logo"
-        />
-        <img
-          className="w-full h-48 object-cover"
-          src={song.albumImageUrl}
-          alt={`${song.title} album cover`}
-        />
+    <div className="flex flex-col w-[250px] h-80 bg-[#0e1118] rounded-2xl overflow-hidden shadow-[0px_4px_10px_rgba(0,0,0,0.5)]">
+      <div className="relative w-full flex justify-center pt-4">
+        {/* Vinyl record effect with album art */}
+        <div className="relative w-48 h-48">
+          {/* Center hole of vinyl */}
+          <div className="absolute left-1/2 top-1/2 w-4 h-4 bg-gray-800 rounded-full -translate-x-1/2 -translate-y-1/2 z-20" />
+          {/* Album art */}
+          <img
+            className="absolute w-full h-full rounded-full animate-spin object-cover"
+            style={{ animationDuration: "8s" }}
+            src={song.albumImageUrl}
+            alt={`${song.title} album cover`}
+          />
+          {/* Spotify logo */}
+          <img
+            className="w-6 h-6 absolute top-0 left-0 z-10"
+            src={SpotifyLogo}
+            alt="Spotify Logo"
+          />
+        </div>
       </div>
       <div className="flex flex-col justify-center items-center flex-1 p-4 text-center">
         <a
@@ -95,6 +105,7 @@ const SpotifyDisplay = () => {
           {song.title}
         </a>
         <p className="text-gray-400 text-sm truncate w-full">{song.artist}</p>
+        <p className="text-gray-400 text-xs mt-1">{song.message}</p>
       </div>
     </div>
   );

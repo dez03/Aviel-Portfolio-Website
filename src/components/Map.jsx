@@ -1,71 +1,114 @@
 import React, { useEffect } from "react";
-import L from "leaflet"; // Import Leaflet
-import "leaflet/dist/leaflet.css"; // Import Leaflet CSS
-
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
 const Map = () => {
   useEffect(() => {
-    // Initialize the map
+    // Initialize map
     const map = L.map("map", {
-      attributionControl: false, // Remove attribution watermark
-    }).setView([36.9741, -122.0308], 15); // Centered on Santa Cruz
+      
+    }).setView([36.9741, -122.0308], 15);
 
-    // Add a working tile layer (OpenStreetMap instead of Mapbox)
+    // Add custom styled tile layer
     L.tileLayer(
-      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", // OpenStreetMap free tiles
+      "https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png",
       {
         maxZoom: 19,
       }
     ).addTo(map);
 
-    // Add a custom gradient circle
-    const gradientCircle = L.divIcon({
-      className: "gradient-circle", // Custom CSS class
-      html: `<div class="circle-gradient"></div>`,
-      iconSize: [100, 100], // Size of the gradient
-      iconAnchor: [50, 50], // Center the gradient
-    });
+    // Create a glowing circle effect
+    const radius = 150;
+    const circle = L.circle([36.9741, -122.0308], {
+      radius: radius,
+      stroke: false,
+      fillColor: "#1DB954",
+      fillOpacity: 0.3,
+      className: "glowing-circle",
+    }).addTo(map);
 
-    // Place the gradient circle on the map
-    L.marker([36.9741, -122.0308], { icon: gradientCircle }).addTo(map);
-    
+    // Add inner circle for more intense glow
+    const innerCircle = L.circle([36.9741, -122.0308], {
+      radius: radius / 2,
+      stroke: false,
+      fillColor: "#1DB954",
+      fillOpacity: 0.5,
+      className: "glowing-circle-inner",
+    }).addTo(map);
 
-    // Add a custom message overlay
-    const message = document.createElement("div");
-    message.id = "map-message";
-    message.className = "map-message";
-    document.getElementById("map").appendChild(message);
-
-    var popup = L.popup();
-
-    function onMapClick(e) {
-        popup
-            .setLatLng(e.latlng)
-            .setContent("You clicked the map at " + e.latlng.toString())
-            .openOn(map);
-    }
-
-    map.on("click", onMapClick);
-  
-  
-    // Cleanup on unmount
     return () => {
       map.remove();
     };
   }, []);
 
   return (
-    <div
-      id="map"
-      style={{
-        height: "400px",
-        width: "50%",
-        cursor: "initial",
-        borderRadius: "15px",
-        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.5)",
-        position: "relative", // Needed for absolute positioning of the message
-      }}
-    ></div>
+    <div className="relative w-[250px] h-80">
+      <div
+        id="map"
+        className="w-full h-full rounded-lg overflow-hidden shadow-lg"
+      />
+      <style jsx global>{`
+        .leaflet-tile-pane {
+          filter: contrast(1.1) brightness(1.2);
+        }
+
+        .glowing-circle {
+          animation: pulse 2s infinite;
+          filter: blur(10px);
+        }
+
+        .glowing-circle-inner {
+          animation: pulse 2s infinite;
+          filter: blur(5px);
+        }
+
+        @keyframes pulse {
+          0% {
+            opacity: 0.3;
+          }
+          50% {
+            opacity: 0.5;
+          }
+          100% {
+            opacity: 0.3;
+          }
+        }
+
+        .leaflet-control-container {
+          display: none;
+        }
+
+        #map {
+          background-color: #10252d;
+        }
+
+        .leaflet-tile {
+          filter: brightness(1.2) contrast(1.1) hue-rotate(190deg) saturate(0.8);
+        }
+
+        /* Custom color overlays */
+        #map::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(
+            to bottom,
+            rgba(16, 37, 45, 0.8),
+            rgba(32, 59, 68, 0.8)
+          );
+          pointer-events: none;
+          mix-blend-mode: color;
+        }
+
+        /* Water bodies */
+        .leaflet-tile-loaded {
+          --water-color: #0b161a;
+        }
+      `}</style>
+    </div>
   );
 };
 
