@@ -71,16 +71,13 @@ const MonkeyTypeDisplay = () => {
 
   return (
     <div className="flex flex-col items-center justify-around w-[250px] h-80 bg-gray-800 border border-gray-600 rounded-lg p-4">
-      <h3 className="text-white font-bold text-lg">15-Second Personal Best</h3>
+      <h3 className="text-white font-bold text-lg">Typing Speed</h3>
       <div className="space-y-3">
         <p className="text-gray-300 text-sm">
           <span className="font-semibold">WPM:</span> {personalBest.wpm}
         </p>
         <p className="text-gray-300 text-sm">
           <span className="font-semibold">Accuracy:</span> {personalBest.acc}%
-        </p>
-        <p className="text-gray-300 text-sm">
-          <span className="font-semibold">Consistency:</span> {personalBest.consistency}%
         </p>
       </div>
       <p className="text-gray-300 text-xs">

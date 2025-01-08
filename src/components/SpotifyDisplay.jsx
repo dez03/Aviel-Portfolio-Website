@@ -33,7 +33,7 @@ const SpotifyDisplay = () => {
     }
 
     fetchSong();
-    intervalId = setInterval(fetchSong, 60000); // Poll every minute
+    intervalId = setInterval(fetchSong, 120000); // Fetch every 2 minutes
 
     return () => clearInterval(intervalId);
   }, []);
