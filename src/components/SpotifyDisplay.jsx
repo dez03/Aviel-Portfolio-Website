@@ -82,7 +82,9 @@ const SpotifyDisplay = () => {
           <div className="absolute left-1/2 top-1/2 w-4 h-4 bg-gray-800 rounded-full -translate-x-1/2 -translate-y-1/2 z-20" />
           {/* Album art */}
           <img
-            className="absolute w-full h-full rounded-full animate-spin object-cover"
+            className={`absolute w-full h-full rounded-full object-cover ${
+              song.isPlaying ? "animate-spin" : ""
+            }`}
             style={{ animationDuration: "8s" }}
             src={song.albumImageUrl}
             alt={`${song.title} album cover`}
