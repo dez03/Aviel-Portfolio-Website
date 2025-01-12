@@ -8,11 +8,17 @@ import MonkeyTypeDisplay from "./components/MonkeyType.jsx"; // Adjust the path 
 export default function App() {
   return (
     <>
-      <div className="h-screen p-4 flex space-x-8 bg-[#09090b]">
-        <Landing />
-        <Map />
-        <SpotifyDisplay />
-        <MonkeyTypeDisplay />
+      <div className='flex flex-col bg-[#09090b]'>
+        <section className='mb-8'>
+          <Landing />
+
+        </section>
+        <section className="h-screen p-4 flex space-x-8">
+
+          <Map />
+          <SpotifyDisplay />
+          <MonkeyTypeDisplay />
+        </section>
       </div>
     </>
   );
