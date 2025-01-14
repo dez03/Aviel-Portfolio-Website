@@ -6,7 +6,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Big Shoulders Display", "serif"],
+        big_shoulders: ["Big Shoulders Display", "serif"],
+        dm_sans: ["DM Sans", "serif"],
       },
     },
   },

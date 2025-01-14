@@ -9,11 +9,17 @@ const client_secret = import.meta.env.VITE_APP_SPOTIFY_CLIENT_SECRET;
 const refresh_token = import.meta.env.VITE_APP_SPOTIFY_REFRESH_TOKEN;
 
 // Fetch access token using refresh token
+let accessToken = null; // Store the token
+let tokenExpiry = 0;    // Token expiry timestamp
+
 const getAccessToken = async () => {
+  // Use cached token if it’s still valid
+  if (accessToken && Date.now() < tokenExpiry) {
+    return accessToken;
+  }
+
   try {
-    const basic = Buffer.from(`${client_id}:${client_secret}`).toString(
-      "base64"
-    );
+    const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
     const response = await fetch(TOKEN_ENDPOINT, {
       method: "POST",
       headers: {
@@ -32,7 +38,9 @@ const getAccessToken = async () => {
     }
 
     const data = await response.json();
-    return data.access_token;
+    accessToken = data.access_token;
+    tokenExpiry = Date.now() + data.expires_in * 1000; // Calculate expiry
+    return accessToken;
   } catch (error) {
     console.error("Error in getAccessToken:", error);
     return null;
@@ -41,38 +49,64 @@ const getAccessToken = async () => {
 
 // Fetch now playing data
 export const getNowPlaying = async () => {
-  const access_token = await getAccessToken();
-  if (!access_token) return null;
+  try {
+    const access_token = await getAccessToken();
+    if (!access_token) {
+      console.error("Failed to retrieve access token for Now Playing.");
+      return null;
+    }
 
-  const response = await fetch(NOW_PLAYING_ENDPOINT, {
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
-  });
+    const response = await fetch(NOW_PLAYING_ENDPOINT, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
 
-  return response;
+    if (!response.ok) {
+      console.error(`Error fetching Now Playing: ${response.status}`);
+      return null;
+    }
+
+    return response;
+  } catch (error) {
+    console.error("Error in getNowPlaying:", error);
+    return null;
+  }
 };
 
 // Fetch last played data
 export const getLastPlayed = async () => {
-  const access_token = await getAccessToken();
-  if (!access_token) return null;
+  try {
+    const access_token = await getAccessToken();
+    if (!access_token) {
+      console.error("Failed to retrieve access token for Last Played.");
+      return null;
+    }
 
-  const response = await fetch(LAST_PLAYED_ENDPOINT, {
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
-  });
+    const response = await fetch(LAST_PLAYED_ENDPOINT, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
 
-  return response;
+    if (!response.ok) {
+      console.error(`Error fetching Last Played: ${response.status}`);
+      return null;
+    }
+
+    return response;
+  } catch (error) {
+    console.error("Error in getLastPlayed:", error);
+    return null;
+  }
 };
 
 // Parse now playing data
 export const getNowPlayingItem = async () => {
   try {
     const response = await getNowPlaying();
-    if (!response.ok || response.status === 204) {
-      console.error(`Spotify API Error (Now Playing): ${response.status}`);
+    if (!response || response.status === 204) {
+      console.warn("No song is currently playing.");
       return null;
     }
 
@@ -88,7 +122,7 @@ export const getNowPlayingItem = async () => {
       message: "Currently playing",
     };
   } catch (error) {
-    console.error("Error parsing now playing data:", error);
+    console.error("Error parsing Now Playing data:", error);
     return null;
   }
 };
@@ -97,16 +131,16 @@ export const getNowPlayingItem = async () => {
 export const getLastPlayedItem = async () => {
   try {
     const response = await getLastPlayed();
-    if (!response.ok) {
-      console.error(`Spotify API Error (Last Played): ${response.status}`);
+    if (!response || !response.ok) {
+      console.error(`Error fetching Last Played: ${response?.status || "Unknown"}`);
       return null;
     }
 
     const data = await response.json();
-    const track = data.items?.[0]; // Most recently played track
+    const track = data.items?.[0];
 
     if (!track) {
-      console.error("No recently played track found.");
+      console.warn("No recently played track found.");
       return null;
     }
 
@@ -120,7 +154,7 @@ export const getLastPlayedItem = async () => {
       message: "Last played",
     };
   } catch (error) {
-    console.error("Error parsing last played data:", error);
+    console.error("Error parsing Last Played data:", error);
     return null;
   }
 };
