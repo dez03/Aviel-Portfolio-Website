@@ -3,7 +3,7 @@ import Map from "../components/Map.jsx";
 import SpotifyDisplay from "../components/SpotifyDisplay.jsx";
 import MonkeyTypeDisplay from "../components/MonkeyType.jsx";
 
-export default function Home() {
+const Home = () => {
   return (
     <>
       <div className='flex flex-col bg-[#09090b]'>
@@ -19,3 +19,5 @@ export default function Home() {
     </>
   );
 }
+
+export default Home;

@@ -14,21 +14,25 @@ import './styles/index.css'
 
 
 
-export default function App() {
+const App = () => {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/experience" element={<Experience />} />
-        <Route path="/education" element={<Education />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
+      <div className="App">
+      <Home />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/experience" element={<Experience />} />
+          <Route path="/education" element={<Education />} />
+          <Route path="/contact" element={<Contact />} /> 
+        </Routes>
+      </div>
     </Router>
   );
 }
 
+export default App;
 // export default function App() {
 //   return (
 //     <>
