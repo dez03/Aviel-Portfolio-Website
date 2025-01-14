@@ -4,9 +4,15 @@ import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfil
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), NodeGlobalsPolyfillPlugin({
-    buffer: true
-  })],
-})
+  plugins: [
+    react(),
+    NodeGlobalsPolyfillPlugin({
+      buffer: true,
+    }),
+  ],
+  server: {
+    open: true,
+  },
+});
 
 
