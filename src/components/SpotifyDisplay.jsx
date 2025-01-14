@@ -85,7 +85,7 @@ const SpotifyDisplay = () => {
             className={`absolute w-full h-full rounded-full object-cover ${
               song.isPlaying ? "animate-spin" : ""
             }`}
-            style={{ animationDuration: "8s" }}
+            style={{ animationDuration: "15s" }}
             src={song.albumImageUrl}
             alt={`${song.title} album cover`}
           />

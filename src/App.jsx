@@ -8,45 +8,31 @@ import Experience from "./pages/Experience.jsx";
 import Education from "./pages/Education.jsx";
 import Contact from "./pages/Contact.jsx";
 
+import Navbar from "./components/Navbar.jsx";
 
-
-import './styles/index.css'
-
-
+import "./styles/index.css";
 
 const App = () => {
   return (
     <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/experience" element={<Experience />} />
-          <Route path="/education" element={<Education />} />
-          <Route path="/contact" element={<Contact />} /> 
-        </Routes>
+      {/* Navbar outside the constrained container */}
+      <Navbar className="fixed top-0" />
+
+      {/* Main Content */}
+      <div className="flex justify-center bg-[#121212] min-h-screen">
+        <div className="App max-w-[1250px] w-full px-4">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/experience" element={<Experience />} />
+            <Route path="/education" element={<Education />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );
-}
+};
 
 export default App;
-// export default function App() {
-//   return (
-//     <>
-//       <div className='flex flex-col bg-[#09090b]'>
-//         <section className='mb-8'>
-//           <Landing />
-
-//         </section>
-//         <section className="h-screen p-4 flex space-x-8">
-
-//           <Map />
-//           <SpotifyDisplay />
-//           <MonkeyTypeDisplay />
-//         </section>
-//       </div>
-//     </>
-//   );
-// }

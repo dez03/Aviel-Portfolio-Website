@@ -1,109 +1,95 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { MapPin } from "lucide-react";
 
 const Map = () => {
+  const mapRef = useRef(null);
+  const mapInstanceRef = useRef(null);
+
   useEffect(() => {
-    let map;
+    if (mapRef.current && !mapInstanceRef.current) {
+      // Initialize map
+      mapInstanceRef.current = L.map(mapRef.current, {
+        center: [36.9916, -122.0583],
+        zoom: 15,
+        zoomControl: false, // Disable default zoom control to add a custom one
+        attributionControl: false,
+        minZoom: 3,
+        maxZoom: 19,
+        tap: false,
+        touchZoom: false,
+        dragging: false,
+        scrollWheelZoom: false,
+        doubleClickZoom: true,
+      });
 
-    if (!L.DomUtil.get("map")._leaflet_id) {
-      map = L.map("map").setView([36.9741, -122.0308], 15);
-
+      // Add tile layer with a lighter navy-blue color scheme
       L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png",
+        "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", // CartoDB Positron
         {
           maxZoom: 19,
+          updateWhenIdle: true,
+          updateWhenZooming: false,
+          keepBuffer: 2,
         }
-      ).addTo(map);
+      ).addTo(mapInstanceRef.current);
 
-      const radius = 150;
-      L.circle([36.9741, -122.0308], {
-        radius: radius,
-        stroke: false,
-        fillColor: "#1DB954",
-        fillOpacity: 0.3,
-        className: "glowing-circle",
-      }).addTo(map);
+      // Add custom zoom control
+      const zoomControl = L.control.zoom({ position: "bottomleft" });
+      zoomControl.addTo(mapInstanceRef.current);
 
-      L.circle([36.9741, -122.0308], {
-        radius: radius / 2,
-        stroke: false,
-        fillColor: "#1DB954",
-        fillOpacity: 0.5,
-        className: "glowing-circle-inner",
-      }).addTo(map);
+      // Style the zoom control buttons
+      const zoomButtons = document.querySelectorAll(".leaflet-control-zoom a");
+      zoomButtons.forEach((button) => {
+        button.style.backgroundColor = "rgba(0, 0, 50, 0.8)"; // Navy blue background
+        button.style.color = "white";
+        button.style.border = "none";
+        button.style.borderRadius = "9999px"; // Full pill shape
+        button.style.padding = "8px 16px";
+        button.style.margin = "5px";
+        button.style.fontSize = "16px";
+        button.style.fontWeight = "bold";
+        button.style.display = "flex";
+        button.style.justifyContent = "center";
+        button.style.alignItems = "center";
+      });
+
+      // Add the green circle at the fixed location
+      const locationCoords = [36.9924592, -122.0517721]; // Your location coordinates
+      L.circle(locationCoords, {
+        color: "rgba(92, 230, 92, 0.8)",
+        fillColor: "rgba(92, 230, 92, 0.4)",
+        fillOpacity: 0.4,
+        radius: 50, // Adjust radius as needed
+      }).addTo(mapInstanceRef.current);
+
+      // Center the map to the location
+      mapInstanceRef.current.setView(locationCoords, 15);
+
+      mapInstanceRef.current.options.zoomAnimation = true;
+      mapInstanceRef.current.options.markerZoomAnimation = true;
     }
 
+    // Cleanup
     return () => {
-      if (map) map.remove();
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
     };
   }, []);
 
   return (
     <div className="relative w-[250px] h-80">
-      <div
-        id="map"
-        className="w-full h-full rounded-lg overflow-hidden shadow-lg"
-      />
-      <style jsx>{`
-        .leaflet-tile-pane {
-          filter: contrast(1.1) brightness(1.2);
-        }
+      {/* Location Label */}
+      <div className="absolute top-4 left-4 z-[1000] flex items-center gap-2 bg-black/80 rounded-full px-4 py-2">
+        <MapPin className="w-4 h-4 text-white" />
+        <span className="text-sm text-white font-medium">Santa Cruz, CA</span>
+      </div>
 
-        .glowing-circle {
-          animation: pulse 2s infinite;
-          filter: blur(10px);
-        }
-
-        .glowing-circle-inner {
-          animation: pulse 2s infinite;
-          filter: blur(5px);
-        }
-
-        @keyframes pulse {
-          0% {
-            opacity: 0.3;
-          }
-          50% {
-            opacity: 0.5;
-          }
-          100% {
-            opacity: 0.3;
-          }
-        }
-
-        .leaflet-control-container {
-          display: none;
-        }
-
-        #map {
-          background-color: #10252d;
-        }
-
-        .leaflet-tile {
-          filter: brightness(1.2) contrast(1.1) hue-rotate(190deg) saturate(0.8);
-        }
-
-        #map::after {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: linear-gradient(
-            to bottom,
-            rgba(16, 37, 45, 0.8),
-            rgba(32, 59, 68, 0.8)
-          );
-          pointer-events: none;
-          mix-blend-mode: color;
-        }
-
-        .leaflet-tile-loaded {
-          --water-color: #0b161a;
-        }
-      `}</style>
+      {/* Map Container */}
+      <div ref={mapRef} className="w-full h-full rounded-lg overflow-hidden" />
     </div>
   );
 };
