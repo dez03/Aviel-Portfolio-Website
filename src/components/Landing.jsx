@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Profile from "../assets/profile.png";
+import { TbNorthStar } from "react-icons/tb";
+
 
 const Landing = () => {
   const firstName = "AVIEL";
@@ -87,6 +89,14 @@ const Landing = () => {
               />
             </div>
           </div>
+          <TbNorthStar className="text-[#e1ef23] my-8 text-6xl"/>
+          
+          <p className="font-dm_sans text-[#F0F0F0] text-[16px] lg:text-[22px]">I am Aviel Hernandez, a full stack web developer passionate about creating impactful solutions and bringing value through code.</p>
+        </div>
+
+
+        <div>
+        
         </div>
       </div>
     </div>
