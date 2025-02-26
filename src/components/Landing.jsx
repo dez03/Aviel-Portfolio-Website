@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Profile from "../assets/profile.png";
 import { TbNorthStar } from "react-icons/tb";
+import ScrollBounce from "../components/ScrollBounce.jsx";
 
 
 const Landing = () => {
@@ -35,7 +36,7 @@ const Landing = () => {
 
   return (
     <div>
-      <p className="font-dm_sans font-medium text-center text-[#f0f0f0] opacity-50 py-8">
+      <p className="font-dm_sans font-medium text-sm tracking-wider text-center text-[#f0f0f0] opacity-50 pt-20 pb-8">
         BUILDING FOR THE WEB SINCE 2020
       </p>
       <div className="relative w-full max-w-screen-lg mx-auto px-4">
@@ -70,6 +71,7 @@ const Landing = () => {
               </span>
             </div>
 
+            
             {/* Circular image container */}
             <div
               className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-hidden"
@@ -89,15 +91,24 @@ const Landing = () => {
               />
             </div>
           </div>
+          
+          {/* Scroll down indicator */}
+        
           <TbNorthStar className="text-[#e1ef23] my-8 text-6xl"/>
           
-          <p className="font-dm_sans text-[#F0F0F0] text-[16px] lg:text-[22px]">I am Aviel Hernandez, a full stack web developer passionate about creating impactful solutions and bringing value through code.</p>
-        </div>
+          <span className="w-1/2">
+            <p className="font-dm_sans text-[#F0F0F0] tracking-wide text-[16px] text-justify lg:text-[22px] leading-[40px]">
+              I am Aviel Hernandez, a full stack web developer passionate about bringing value through code.
+            </p>
+          </span>
 
-
-        <div>
-        
-        </div>
+          <div className="flex flex-col items-center justify-center mt-24">
+            <ScrollBounce />
+            <p className="font-dm_sans font-medium text-sm text-center text-[#f0f0f0] opacity-50 mt-2">
+              SCROLL
+            </p>
+          </div>
+        </div>        
       </div>
     </div>
   );

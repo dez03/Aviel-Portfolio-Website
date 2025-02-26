@@ -52,8 +52,8 @@ const Navbar = () => {
             </div>
           </button>
 
-          {/* Center Image */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/4">
+          {/* Signature SVG */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 pb-8">
             <svg
               width="auto"
               height="80"
