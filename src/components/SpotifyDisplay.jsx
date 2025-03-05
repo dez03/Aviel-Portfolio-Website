@@ -33,7 +33,7 @@ const SpotifyDisplay = () => {
     }
 
     fetchSong();
-    intervalId = setInterval(fetchSong, 5000); // Fetch every 2 minutes
+    intervalId = setInterval(fetchSong, 120000); // Fetch every 2 minutes
 
     return () => clearInterval(intervalId);
   }, []);
@@ -89,6 +89,8 @@ const SpotifyDisplay = () => {
             src={song.albumImageUrl}
             alt={`${song.title} album cover`}
           />
+
+    
           {/* Spotify logo */}
           <img
             className="w-6 h-6 absolute top-0 left-0 z-10"

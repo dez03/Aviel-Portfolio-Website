@@ -90,22 +90,20 @@ const Navbar = () => {
               <div className="bg-[#121212]/70 w-min backdrop-blur-sm rounded-2xl py-4 px-4">
                 {menuItems.map((item, index) => (
                   <a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
-                    onClick={() => handleClick(item)}
-                    className={`font-big_shoulders font-bold text-[32px] block py-2 transition-all duration-300 transform ${
-                      currentPage === item ? "text-[#e0f024]" : "text-[#f1f1f1]"
-                    } hover:text-[#737373] ${
-                      isOpen
-                        ? "translate-x-0 opacity-100"
-                        : "-translate-x-4 opacity-0"
-                    }`}
-                    style={{
-                      transitionDelay: `${isOpen ? index * 50 : 0}ms`,
-                    }}
-                  >
-                    {item}
-                  </a>
+                  key={item}
+                  href={item === "HOME" ? "/" : `/${item.toLowerCase()}`}
+                  onClick={() => handleClick(item)}
+                  className={`font-big_shoulders font-bold text-[32px] block py-2 transition-all duration-300 transform ${
+                    currentPage === item ? "text-[#e0f024]" : "text-[#f1f1f1]"
+                  } hover:text-[#737373] ${
+                    isOpen ? "translate-x-0 opacity-100" : "-translate-x-4 opacity-0"
+                  }`}
+                  style={{
+                    transitionDelay: `${isOpen ? index * 50 : 0}ms`,
+                  }}
+                >
+                  {item}
+                </a>
                 ))}
               </div>
             </div>
