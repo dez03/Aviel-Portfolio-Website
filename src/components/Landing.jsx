@@ -47,7 +47,7 @@ const Landing = () => {
               {firstName.split("").map((letter, index) => (
                 <span
                   key={index}
-                  className="inline-block transition-all duration-300 font-big_shoulders font-black text-[#e0f024]"
+                  className="inline-block transition-all duration-300 font-big_shoulders font-black text-white"
                   style={{
                     fontSize: "clamp(6rem, 15vw, 260px)",
                     lineHeight: "0.9",
@@ -61,7 +61,7 @@ const Landing = () => {
             {/* Last name */}
             <div className="last-name">
               <span
-                className="inline-block transition-all duration-300 font-big_shoulders font-black text-[#e0f024]"
+                className="inline-block transition-all duration-300 font-big_shoulders font-black text-white"
                 style={{
                   fontSize: "clamp(4.5rem, 15vw, 260px)",
                   lineHeight: "0.9",
@@ -94,11 +94,11 @@ const Landing = () => {
           
           {/* Scroll down indicator */}
         
-          <TbNorthStar className="text-[#e1ef23] my-8 text-6xl"/>
+          <TbNorthStar className="text-[#1f67f0] my-8 text-6xl"/>
           
           <span className="w-1/2">
             <p className="font-dm_sans text-[#F0F0F0] tracking-wide text-[16px] text-justify lg:text-[22px] leading-[40px]">
-              I am Aviel Hernandez, a full stack web developer passionate about bringing value through code.
+              I'm Aviel, a full stack developer passionate about bringing value through code.
             </p>
           </span>
 

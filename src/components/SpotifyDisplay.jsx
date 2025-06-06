@@ -73,45 +73,55 @@ const SpotifyDisplay = () => {
     );
   }
 
+  /* ------------------------------------------------------------------ */
+  /* pretty card                                                         */
+  /* ------------------------------------------------------------------ */
+  const playingLabel = song.isPlaying ? "Now playing" : "Last played";
+
   return (
-    <div className="flex flex-col w-[250px] h-80 bg-[#0e1118] rounded-2xl overflow-hidden shadow-[0px_4px_10px_rgba(0,0,0,0.5)]">
-      <div className="relative w-full flex justify-center pt-4">
-        {/* Vinyl record effect with album art */}
-        <div className="relative w-48 h-48">
-          {/* Center hole of vinyl */}
-          <div className="absolute left-1/2 top-1/2 w-4 h-4 bg-gray-800 rounded-full -translate-x-1/2 -translate-y-1/2 z-20" />
-          {/* Album art */}
+    <a
+      href={song.songUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="focus:outline-none"
+    >
+      <div className="group relative flex items-center w-full h-[120px] rounded-3xl bg-[#0f1118] border border-[#1b1e27] px-5 py-4 overflow-hidden hover:border-[#1ed760]/60 transition-colors duration-200">
+        {/* vinyl record */}
+        <div className="relative flex-shrink-0 w-20 h-20">
+          {/* center hole */}
+          <div className="absolute left-1/2 top-1/2 w-3 h-3 bg-gray-900 rounded-full -translate-x-1/2 -translate-y-1/2 z-20" />
+          {/* album art spinning */}
           <img
+            src={song.albumImageUrl}
+            alt={`${song.title} album cover`}
             className={`absolute w-full h-full rounded-full object-cover ${
               song.isPlaying ? "animate-spin" : ""
             }`}
-            style={{ animationDuration: "15s" }}
-            src={song.albumImageUrl}
-            alt={`${song.title} album cover`}
+            style={{ animationDuration: "10s" }}
           />
+        </div>
 
-    
-          {/* Spotify logo */}
+        {/* song info */}
+        <div className="ml-5 flex flex-col overflow-hidden">
+          <span className="text-gray-400 text-sm font-medium">{playingLabel}</span>
+          <span className="text-gray-100 font-semibold text-lg leading-tight truncate max-w-[190px]">
+            {song.title}
+          </span>
+          <span className="text-gray-400 text-sm truncate max-w-[190px]">
+            {song.artist}
+          </span>
+        </div>
+
+        {/* circular spotify badge top‑right, matches screenshot */}
+        <div className="absolute top-3 right-4 w-8 h-8 rounded-full bg-[#161922] flex items-center justify-center">
           <img
-            className="w-6 h-6 absolute top-0 left-0 z-10"
             src={SpotifyLogo}
-            alt="Spotify Logo"
+            alt="Spotify"
+            className="w-5 h-5 absolute filter brightness-0 invert transition duration-200 group-hover:filter-none"
           />
         </div>
       </div>
-      <div className="flex flex-col justify-center items-center flex-1 p-4 text-center">
-        <a
-          className="text-gray-300 hover:text-white font-medium truncate w-full mb-1"
-          href={song.songUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {song.title}
-        </a>
-        <p className="text-gray-400 text-sm truncate w-full">{song.artist}</p>
-        <p className="text-gray-400 text-xs mt-1">{song.message}</p>
-      </div>
-    </div>
+    </a>
   );
 };
 

@@ -42,7 +42,7 @@ const Map = () => {
       // Style the zoom control buttons
       const zoomButtons = document.querySelectorAll(".leaflet-control-zoom a");
       zoomButtons.forEach((button) => {
-        button.style.backgroundColor = "rgba(0, 0, 50, 0.8)"; // Navy blue background
+        button.style.backgroundColor = "#0f1118"; // Navy blue background
         button.style.color = "white";
         button.style.border = "none";
         button.style.borderRadius = "9999px"; // Full pill shape
@@ -58,10 +58,10 @@ const Map = () => {
       // Add the green circle at the fixed location
       const locationCoords = [36.9924592, -122.0517721]; // Your location coordinates
       L.circle(locationCoords, {
-        color: "rgba(92, 230, 92, 0.8)",
-        fillColor: "rgba(92, 230, 92, 0.4)",
+        color: "#5ce65ccc",
+        fillColor: "#5ce65c66",
         fillOpacity: 0.4,
-        radius: 50, // Adjust radius as needed
+        radius: 80, // Adjust radius as needed
       }).addTo(mapInstanceRef.current);
 
       // Center the map to the location
@@ -81,7 +81,7 @@ const Map = () => {
   }, []);
 
   return (
-    <div className="relative w-[250px] h-80">
+    <div className="relative w-full h-80">
       {/* Location Label */}
       <div className="absolute top-4 left-4 z-[1000] flex items-center gap-2 bg-black/80 rounded-full px-4 py-2">
         <MapPin className="w-4 h-4 text-white" />
