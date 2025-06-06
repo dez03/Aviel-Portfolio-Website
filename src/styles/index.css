@@ -38,7 +38,7 @@
 
 @keyframes scrollUpDown {
     0% { transform: translateY(0); }
-    50% { transform: translateY(33.4px); } /* Outer bar height (100px) - inner bar height (33px) */
+    50% { transform: translateY(33.3px); } /* Outer bar height (100px) - inner bar height (33px) */
     100% { transform: translateY(0); }
   }
   
