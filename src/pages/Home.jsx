@@ -11,7 +11,7 @@ import "../styles/index.css";
 const stats = [
   { title: "Next.js & React", note: "Production apps shipped", value: "92%" },
   { title: "AWS & DevOps", note: "Lambda, CI/CD", value: "80%" },
-  { title: "Hackathons run", note: "SimpliHacks + UnionHacks", value: "3" },
+  { title: "Hackathons Run and Won", note: "800+ Participants, $250,000+ in Prizes, $7000+ Raised, 27 Sponsors", value: "7" },
 ];
 
 
@@ -55,15 +55,13 @@ const Home = () => {
             <div className="flex flex-col gap-8 w-full md:w-auto">
               {stats.map(({ title, note, value }) => (
                 <div
-                  key={title}
-                  className="flex justify-between items-center bg-[#E4FF1A] text-black rounded-2xl p-6"
-                >
-                  <div>
-                    <h3 className="text-2xl font-bold">{title}</h3>
-                    <p className="text-lg">{note}</p>
-                  </div>
-                  <div className="text-6xl font-extrabold">{value}</div>
-                </div>
+                key={title}
+                className="sticky top-[120px] z-[${10 + index}] bg-[#E4FF1A] text-black rounded-2xl p-6 shadow-xl"
+              >
+                <h3 className="text-2xl font-bold">{title}</h3>
+                <p className="text-lg">{note}</p>
+                <div className="text-6xl font-extrabold mt-2">{value}</div>
+              </div>
               ))}
             </div>
 
@@ -71,6 +69,8 @@ const Home = () => {
             <CodingTimer />
           </div>
         </section>
+
+        
       </div>
     </>
   );
