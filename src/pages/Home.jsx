@@ -3,6 +3,7 @@ import AboutSection from "../components/AboutSection.jsx";
 import Map from "../components/Map.jsx";
 import SpotifyDisplay from "../components/SpotifyDisplay.jsx";
 import MonkeyTypeDisplay from "../components/MonkeyType.jsx";
+import CurrentlyAt from "../components/CurrentlyAt.jsx";
 import GithubChart from "../components/GithubChart.jsx";
 import CodingTimer from "../components/CodingTimer.jsx";
 
@@ -33,6 +34,8 @@ const Home = () => {
             <Map />
             <SpotifyDisplay />
             <MonkeyTypeDisplay />
+            <CurrentlyAt />
+
           </div>
           <div className="w-full">
             <GithubChart />

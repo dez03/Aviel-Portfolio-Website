@@ -120,7 +120,7 @@ const MonkeyTypeDisplay = () => {
             <FiTarget size={14} /> {personalBest.acc}%
           </div>
           <div className="flex items-center gap-1">
-            <FiGlobe size={14} /> ID
+            <FiGlobe size={14} /> ENG
           </div>
         </div>
       </div>
