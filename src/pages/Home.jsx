@@ -6,6 +6,7 @@ import MonkeyTypeDisplay from "../components/MonkeyType.jsx";
 import CurrentlyAt from "../components/CurrentlyAt.jsx";
 import GithubChart from "../components/GithubChart.jsx";
 import CodingTimer from "../components/CodingTimer.jsx";
+import TechStack from "../components/TechStack.jsx"
 
 import "../styles/index.css";
 
@@ -35,6 +36,7 @@ const Home = () => {
             <SpotifyDisplay />
             <MonkeyTypeDisplay />
             <CurrentlyAt />
+            <TechStack />
 
           </div>
           <div className="w-full">

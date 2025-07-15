@@ -46,3 +46,6 @@
     animation: scrollUpDown 3s ease-in-out infinite;
   }
 
+.marquee-container:hover .marquee-content {
+  animation-play-state: paused;
+}
