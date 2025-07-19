@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { GiStack } from "react-icons/gi";
+// import { GiStack } from "react-icons/gi";
 // import { SiReact, SiTailwindcss, SiNodedotjs, SiTypescript, SiPython, SiMongodb } from 'react-icons/si';
 
 // const techLogos = [
@@ -57,7 +57,7 @@ const TechStack = () => {
         {/* pill label */}
         <div className="flex items-center gap-2 bg-[#161922] text-gray-300 text-xs font-medium px-3 py-1 rounded-full w-max shadow-inner">
           {/* <TbKeyboard className="text-gray-400" size={14} /> */}
-          <GiStack size={14} className="text-white" />
+          {/* <GiStack size={14} className="text-white" /> */}
           Tech Stack
         </div>
 

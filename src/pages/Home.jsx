@@ -58,15 +58,19 @@ const Home = () => {
           {/* ── Stats cards + coding timer ───────────────────────── */}
           <div className="flex flex-col md:flex-row items-start justify-between gap-8">
             <div className="flex flex-col gap-8 w-full md:w-auto">
-              {stats.map(({ title, note, value }) => (
+              {stats.map(({ title, note, value }, index) => (
                 <div
-                key={title}
-                className="sticky top-[120px] z-[${10 + index}] bg-[#E4FF1A] text-black rounded-2xl p-6 shadow-xl"
-              >
-                <h3 className="text-2xl font-bold">{title}</h3>
-                <p className="text-lg">{note}</p>
-                <div className="text-6xl font-extrabold mt-2">{value}</div>
-              </div>
+                  key={title}
+                  className={
+                    "sticky top-[120px] bg-[#E4FF1A] text-black rounded-2xl p-6 shadow-xl z-[" +
+                    (10 + index) +
+                    "]"
+                  }
+                >
+                  <h3 className="text-2xl font-bold">{title}</h3>
+                  <p className="text-lg">{note}</p>
+                  <div className="text-6xl font-extrabold mt-2">{value}</div>
+                </div>
               ))}
             </div>
 
