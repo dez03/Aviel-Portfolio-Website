@@ -1,4 +1,5 @@
 import GitHubCalendar from "react-github-calendar";
+import { GiStack } from "react-icons/gi";
 
 export default function GithubChart() {
   return (

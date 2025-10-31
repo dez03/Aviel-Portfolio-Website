@@ -61,11 +61,7 @@ const Home = () => {
               {stats.map(({ title, note, value }, index) => (
                 <div
                   key={title}
-                  className={
-                    "sticky top-[120px] bg-[#E4FF1A] text-black rounded-2xl p-6 shadow-xl z-[" +
-                    (10 + index) +
-                    "]"
-                  }
+                  className="sticky top-[120px] bg-[#E4FF1A] text-black rounded-2xl p-6 shadow-xl z-10"
                 >
                   <h3 className="text-2xl font-bold">{title}</h3>
                   <p className="text-lg">{note}</p>
