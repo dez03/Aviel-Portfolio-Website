@@ -8,6 +8,10 @@ const client_id = import.meta.env.VITE_APP_SPOTIFY_CLIENT_ID;
 const client_secret = import.meta.env.VITE_APP_SPOTIFY_CLIENT_SECRET;
 const refresh_token = import.meta.env.VITE_APP_SPOTIFY_REFRESH_TOKEN;
 
+// Optional proxy URL for production (serverless function)
+const PROXY_URL = import.meta.env.VITE_DEPLOYED_SPOTIFY_PROXY_URL ||
+  (typeof window !== 'undefined' ? `${window.location.origin}/api/spotify` : undefined);
+
 // Fetch access token using refresh token
 let accessToken = null; // Store the token
 let tokenExpiry = 0;    // Token expiry timestamp
@@ -19,6 +23,10 @@ const getAccessToken = async () => {
   }
 
   try {
+    // In production, use proxy to avoid exposing client secret and CORS issues
+    if (import.meta.env.PROD && PROXY_URL) {
+      return null; // token handled on server, client won't request token directly
+    }
     const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
     const response = await fetch(TOKEN_ENDPOINT, {
       method: "POST",
@@ -50,6 +58,11 @@ const getAccessToken = async () => {
 // Fetch now playing data
 export const getNowPlaying = async () => {
   try {
+    if (import.meta.env.PROD && PROXY_URL) {
+      const response = await fetch(`${PROXY_URL}?type=now`);
+      return response;
+    }
+
     const access_token = await getAccessToken();
     if (!access_token) {
       console.error("Failed to retrieve access token for Now Playing.");
@@ -57,9 +70,7 @@ export const getNowPlaying = async () => {
     }
 
     const response = await fetch(NOW_PLAYING_ENDPOINT, {
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      },
+      headers: { Authorization: `Bearer ${access_token}` },
     });
 
     if (!response.ok) {
@@ -77,6 +88,11 @@ export const getNowPlaying = async () => {
 // Fetch last played data
 export const getLastPlayed = async () => {
   try {
+    if (import.meta.env.PROD && PROXY_URL) {
+      const response = await fetch(`${PROXY_URL}?type=last`);
+      return response;
+    }
+
     const access_token = await getAccessToken();
     if (!access_token) {
       console.error("Failed to retrieve access token for Last Played.");
@@ -84,9 +100,7 @@ export const getLastPlayed = async () => {
     }
 
     const response = await fetch(LAST_PLAYED_ENDPOINT, {
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      },
+      headers: { Authorization: `Bearer ${access_token}` },
     });
 
     if (!response.ok) {
