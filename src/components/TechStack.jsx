@@ -46,34 +46,16 @@ import React from 'react';
 const TechStack = () => {
   
   return (
-    <a
-      href="https://monkeytype.com/profile/dez03"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="focus:outline-none"
-    >
-      <div className="relative flex flex-col justify-between w-full h-[190px] rounded-3xl bg-[#0f1118] border border-[#1b1e27] p-6 overflow-hidden hover:border-[#e1b70e] transition-colors duration-200">
-
-        {/* pill label */}
-        <div className="flex items-center gap-2 bg-[#161922] text-gray-300 text-xs font-medium px-3 py-1 rounded-full w-max shadow-inner">
-          {/* <TbKeyboard className="text-gray-400" size={14} /> */}
-          {/* <GiStack size={14} className="text-white" /> */}
-          Tech Stack
-        </div>
-
-        {/* main number */}
-        <div className="mt-2">
-          <h2 className="text-white text-md font-bold leading-snug">
-            Tech Stack
-          </h2>
-          <p className="text-base text-gray-400 mt-2">
-            Mostly used JavaScript in the past, but I've recently been exploring C++ and Python.
-          </p>
-        </div>
-        
-
+    <div className="relative flex flex-col justify-between w-full h-[190px] rounded-2xl bg-white/5 border border-white/10 p-6 overflow-hidden hover:border-primary-400/50 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm group">
+      <div className="absolute inset-0 bg-gradient-to-br from-accent-purple/10 to-primary-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div className="relative flex items-center gap-2 bg-white/10 text-gray-300 text-xs font-medium px-3 py-1.5 rounded-full w-max border border-white/10">
+        <span>Tech Stack</span>
       </div>
-    </a>
+      <div className="relative mt-4">
+        <h2 className="text-white text-lg font-bold leading-snug mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-accent-purple group-hover:to-primary-400 transition-all">Technologies</h2>
+        <p className="text-sm text-gray-400 leading-relaxed">Mostly used JavaScript in the past, but I've recently been exploring C++ and Python.</p>
+      </div>
+    </div>
   );
 };
 

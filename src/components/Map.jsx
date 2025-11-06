@@ -24,9 +24,9 @@ const Map = () => {
         doubleClickZoom: true,
       });
 
-      // Add tile layer with a lighter navy-blue color scheme
+      // Add dark tile layer to match site theme
       L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", // CartoDB Positron
+        "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
         {
           maxZoom: 19,
           updateWhenIdle: true,
@@ -39,20 +39,23 @@ const Map = () => {
       const zoomControl = L.control.zoom({ position: "bottomleft" });
       zoomControl.addTo(mapInstanceRef.current);
 
-      // Style the zoom control buttons
+      // Style the zoom control buttons for contrast
       const zoomButtons = document.querySelectorAll(".leaflet-control-zoom a");
       zoomButtons.forEach((button) => {
-        button.style.backgroundColor = "#0f1118"; // Navy blue background
-        button.style.color = "white";
-        button.style.border = "none";
-        button.style.borderRadius = "9999px"; // Full pill shape
-        button.style.padding = "8px 16px";
-        button.style.margin = "5px";
-        button.style.fontSize = "16px";
-        button.style.fontWeight = "bold";
+        button.style.backgroundColor = "#0f1118";
+        button.style.color = "#ffffff";
+        button.style.border = "1px solid rgba(255, 255, 255, 0.3)";
+        button.style.borderRadius = "12px";
+        button.style.width = "36px";
+        button.style.height = "36px";
+        button.style.lineHeight = "36px";
+        button.style.margin = "6px";
+        button.style.fontSize = "18px";
+        button.style.fontWeight = "800";
         button.style.display = "flex";
         button.style.justifyContent = "center";
         button.style.alignItems = "center";
+        button.style.boxShadow = "0 6px 16px rgba(0,0,0,0.4)";
       });
 
       // Add the green circle at the fixed location
@@ -81,15 +84,12 @@ const Map = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-80">
-      {/* Location Label */}
-      <div className="absolute top-4 left-4 z-[1000] flex items-center gap-2 bg-black/80 rounded-full px-4 py-2">
-        <MapPin className="w-4 h-4 text-white" />
+    <div className="relative w-full h-80 rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm group hover:border-primary-400/50 transition-all duration-300">
+      <div className="absolute top-4 left-4 z-[1000] flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 group-hover:border-primary-400/50 transition-colors">
+        <MapPin className="w-4 h-4 text-primary-400" />
         <span className="text-sm text-white font-medium">Santa Cruz, CA</span>
       </div>
-
-      {/* Map Container */}
-      <div ref={mapRef} className="w-full h-full rounded-lg overflow-hidden" />
+      <div ref={mapRef} className="w-full h-full" />
     </div>
   );
 };

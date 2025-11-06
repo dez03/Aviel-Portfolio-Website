@@ -19,8 +19,8 @@ const App = () => {
       <Navbar className="fixed top-0" />
 
       {/* Main Content */}
-      <div className="flex justify-center min-h-screen">
-        <div className="App max-w-[1250px] w-full px-4">
+      <div className="flex justify-center min-h-screen bg-[#0a0a0a]">
+        <div className="App max-w-[1250px] w-full px-4 md:px-6">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />

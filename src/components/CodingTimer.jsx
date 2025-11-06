@@ -18,20 +18,19 @@ export default function CodingTimer() {
   const { years, months, days, hours, minutes, seconds } = duration;
 
   return (
-    <div className="flex justify-between items-center bg-[#E4FF1A] text-black rounded-2xl p-6 w-full hover:brightness-95 transition">
-      {/* left block */}
-      <div>
-        <h3 className="text-2xl font-bold">I started coding</h3>
-        <p className="text-lg opacity-80">
-          Tue Sep 15 2020&nbsp;—&nbsp;10:20 pm EST
-        </p>
+    <div className="relative flex justify-between items-center bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-2xl p-6 w-full hover:from-primary-400 hover:to-primary-500 transition-all duration-300 shadow-lg shadow-primary-500/20 group overflow-hidden">
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:20px_20px]"></div>
       </div>
-
-      {/* live counter */}
-      <div className="text-right leading-tight font-extrabold text-3xl sm:text-5xl tabular-nums">
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-shimmer"></div>
+      <div className="relative z-10">
+        <h3 className="text-xl md:text-2xl font-bold">I started coding</h3>
+        <p className="text-sm md:text-base opacity-90 mt-1">Tue Sep 15 2020&nbsp;—&nbsp;10:20 pm EST</p>
+      </div>
+      <div className="relative z-10 text-right leading-tight font-extrabold text-2xl sm:text-4xl md:text-5xl tabular-nums">
         {years}y&nbsp;{months}m<br className="hidden sm:block" />
         {days}d&nbsp;{hours}h&nbsp;{minutes}m&nbsp;
-        <span className="text-4xl sm:text-6xl">{String(seconds).padStart(2,"0")}s</span>
+        <span className="text-3xl sm:text-5xl md:text-6xl">{String(seconds).padStart(2,"0")}s</span>
       </div>
     </div>
   );

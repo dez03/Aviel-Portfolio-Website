@@ -3,25 +3,24 @@ import { GiStack } from "react-icons/gi";
 
 export default function GithubChart() {
   return (
-
-    
-    <div className="relative flex flex-col justify-between w-full h-[220px] rounded-3xl bg-[#0f1118] border border-[#1b1e27] p-6 overflow-hidden hover:border-[#e1b70e] transition-colors duration-200">
-      {/* <h1 className="inline-block transition-all duration-300 font-big_shoulders font-black text-7xl text-[#e0f024]">Github Chart</h1> */}
-      <div className="flex items-center gap-2 bg-[#161922] text-gray-300 text-xs font-medium px-3 py-1 rounded-full w-max shadow-inner">
-        {/* <TbKeyboard className="text-gray-400" size={14} /> */}
-        <GiStack size={14} className="text-white" />
-        GitHub Activity
+    <div className="relative flex flex-col justify-between w-full h-[220px] rounded-2xl bg-white/5 border border-white/10 p-6 overflow-hidden hover:border-primary-400/50 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm group">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-accent-cyan/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div className="relative flex items-center gap-2 bg-white/10 text-gray-300 text-xs font-medium px-3 py-1.5 rounded-full w-max border border-white/10 mb-4">
+        <GiStack size={14} className="text-primary-400" />
+        <span>GitHub Activity</span>
       </div>
-      <GitHubCalendar
-        username="dez03"
-        labels={{ totalCount: '{{count}} contributions' }}
-        blockSize={15}
-        blockMargin={5}
-        hideColorLegend={true}
-        color="#e0f024"
-        style={{ color: '#ffffff' }}
-        fontSize={16}
-      />
+      <div className="relative">
+        <GitHubCalendar
+          username="dez03"
+          labels={{ totalCount: '{{count}} contributions' }}
+          blockSize={12}
+          blockMargin={4}
+          hideColorLegend={true}
+          color="#22d3ee"
+          style={{ color: '#ffffff' }}
+          fontSize={14}
+        />
+      </div>
     </div>
   )
 }

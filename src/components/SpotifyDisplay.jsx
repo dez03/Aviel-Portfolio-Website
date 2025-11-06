@@ -41,13 +41,9 @@ const SpotifyDisplay = () => {
   // if loading, display loading message
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center w-[250px] h-80 bg-gray-800 border border-gray-600 rounded-lg">
-        <img
-          className="w-10 h-10 mb-2 animate-spin"
-          src={SpotifyLogo}
-          alt="Spotify Logo"
-        />
-        <p className="text-gray-300 text-sm tracking-wider">Loading...</p>
+      <div className="flex flex-col items-center justify-center w-full h-[140px] rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+        <img className="w-8 h-8 mb-2 animate-spin" src={SpotifyLogo} alt="Spotify Logo" />
+        <p className="text-gray-400 text-xs tracking-wider">Loading...</p>
       </div>
     );
   }
@@ -55,20 +51,18 @@ const SpotifyDisplay = () => {
   // If there is an error or no song is playing
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center w-[250px] h-80 bg-gray-800 border border-gray-600 rounded-lg">
-        <img className="w-10 h-10 mb-2" src={SpotifyLogo} alt="Spotify Logo" />
-        <p className="text-gray-300 text-sm tracking-wider">{error}</p>
+      <div className="flex flex-col items-center justify-center w-full h-[140px] rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+        <img className="w-8 h-8 mb-2" src={SpotifyLogo} alt="Spotify Logo" />
+        <p className="text-gray-400 text-xs tracking-wider">{error}</p>
       </div>
     );
   }
   // If there is an error or no song is playing
   if (!song) {
     return (
-      <div className="flex flex-col items-center justify-center w-[250px] h-80 bg-gray-800 border border-gray-600 rounded-lg">
-        <img className="w-10 h-10 mb-2" src={SpotifyLogo} alt="Spotify Logo" />
-        <p className="text-gray-300 text-sm tracking-wider">
-          No song currently playing
-        </p>
+      <div className="flex flex-col items-center justify-center w-full h-[140px] rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+        <img className="w-8 h-8 mb-2" src={SpotifyLogo} alt="Spotify Logo" />
+        <p className="text-gray-400 text-xs tracking-wider">No song currently playing</p>
       </div>
     );
   }
@@ -79,22 +73,18 @@ const SpotifyDisplay = () => {
   const playingLabel = song.isPlaying ? "Now playing" : "Last played";
 
   return (
-    <a
-      href={song.songUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="focus:outline-none"
-    >
-      <div className="group relative flex items-center w-full h-[120px] rounded-3xl bg-[#0f1118] border border-[#1b1e27] px-5 py-4 overflow-hidden hover:border-[#1ed760]/60 transition-colors duration-200">
+    <a href={song.songUrl} target="_blank" rel="noopener noreferrer" className="focus:outline-none block group">
+      <div className="relative flex items-center w-full h-[140px] rounded-2xl bg-white/5 border border-white/10 px-6 py-5 overflow-hidden hover:border-primary-400/50 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-accent-cyan/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         {/* vinyl record */}
-        <div className="relative flex-shrink-0 w-20 h-20">
-          {/* center hole */}
-          <div className="absolute left-1/2 top-1/2 w-3 h-3 bg-gray-900 rounded-full -translate-x-1/2 -translate-y-1/2 z-20" />
+        <div className="relative flex-shrink-0 w-24 h-24 z-10">
+          <div className="absolute inset-0 rounded-full border-2 border-white/20 group-hover:border-primary-400/40 transition-colors"></div>
+          <div className="absolute left-1/2 top-1/2 w-4 h-4 bg-[#0a0a0a] rounded-full -translate-x-1/2 -translate-y-1/2 z-20 border-2 border-white/10"></div>
           {/* album art spinning */}
           <img
             src={song.albumImageUrl}
             alt={`${song.title} album cover`}
-            className={`absolute w-full h-full rounded-full object-cover ${
+            className={`absolute inset-0 w-full h-full rounded-full object-cover ${
               song.isPlaying ? "animate-spin" : ""
             }`}
             style={{ animationDuration: "10s" }}
@@ -102,23 +92,19 @@ const SpotifyDisplay = () => {
         </div>
 
         {/* song info */}
-        <div className="ml-5 flex flex-col overflow-hidden">
-          <span className="text-gray-400 text-sm font-medium">{playingLabel}</span>
-          <span className="text-gray-100 font-semibold text-lg leading-tight truncate max-w-[190px]">
+        <div className="ml-6 flex flex-col overflow-hidden flex-1 z-10">
+          <span className="text-gray-400 text-xs font-medium uppercase tracking-wider mb-1">{playingLabel}</span>
+          <span className="text-white font-semibold text-lg leading-tight truncate mb-1 group-hover:text-primary-400 transition-colors">
             {song.title}
           </span>
-          <span className="text-gray-400 text-sm truncate max-w-[190px]">
+          <span className="text-gray-400 text-sm truncate">
             {song.artist}
           </span>
         </div>
 
-        {/* circular spotify badge top‑right, matches screenshot */}
-        <div className="absolute top-3 right-4 w-8 h-8 rounded-full bg-[#161922] flex items-center justify-center">
-          <img
-            src={SpotifyLogo}
-            alt="Spotify"
-            className="w-5 h-5 absolute filter brightness-0 invert transition duration-200 group-hover:filter-none"
-          />
+        {/* spotify badge */}
+        <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 flex items-center justify-center group-hover:bg-[#1ed760]/20 group-hover:border-[#1ed760]/40 transition-all z-10">
+          <img src={SpotifyLogo} alt="Spotify" className="w-5 h-5" />
         </div>
       </div>
     </a>

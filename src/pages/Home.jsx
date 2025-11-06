@@ -23,6 +23,7 @@ const Home = () => {
       <div className="flex flex-col">
         <section className="mb-20">
           <Landing />
+          
         </section>
 
         {/* About Line Section */}
@@ -30,8 +31,8 @@ const Home = () => {
           <AboutSection />
         </section>
 
-        <section className="flex flex-col items-center w-full max-w-[1080px] mx-auto gap-8 pb-8">
-          <div className="grid w-full gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <section className="flex flex-col items-center w-full max-w-[1080px] mx-auto gap-6 pb-8">
+          <div className="grid w-full gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             <Map />
             <SpotifyDisplay />
             <MonkeyTypeDisplay />
@@ -46,32 +47,37 @@ const Home = () => {
 
         <section className="w-full max-w-[1080px] mx-auto mb-20">
           {/* ── Two‑column intro text ─────────────────────────────── */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <p className="text-xl md:text-2xl leading-relaxed text-gray-300">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <p className="text-lg md:text-xl leading-relaxed text-gray-300">
               I turn relentless curiosity into code that makes life easier—learning from every book, byte, and conversation along the way.
             </p>
-            <p className="text-xl md:text-2xl leading-relaxed text-gray-300">
-              I'm a Computer&nbsp;Science &amp; Philosophy undergrad at <span className="whitespace-nowrap">UC&nbsp;Santa&nbsp;Cruz</span>, an Amazon Future Engineer scholar, and an incoming AWS SDE intern. Organizing 400‑person hackathons, shipping side‑projects like <em>bioTunes</em> and the award‑winning <em>Echo&nbsp;Journal</em>, and competing in D1A rugby have taught me to merge rigorous engineering with real‑world impact.
+            <p className="text-lg md:text-xl leading-relaxed text-gray-300">
+              I'm a Computer&nbsp;Science &amp; Philosophy undergrad at <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-cyan font-semibold">UC&nbsp;Santa&nbsp;Cruz</span>, an Amazon Future Engineer scholar, and a previous AWS SDE intern. Organizing 400‑person hackathons, shipping side‑projects like <em className="text-primary-400">bioTunes</em> and the award‑winning <em className="text-primary-400">Mindweave.org</em>, and competing in D1A rugby have taught me to merge rigorous engineering with real‑world impact.
             </p>
           </div>
 
           {/* ── Stats cards + coding timer ───────────────────────── */}
-          <div className="flex flex-col md:flex-row items-start justify-between gap-8">
-            <div className="flex flex-col gap-8 w-full md:w-auto">
+          <div className="flex flex-col lg:flex-row items-start justify-between gap-8">
+            <div className="flex flex-col gap-6 w-full lg:w-auto">
               {stats.map(({ title, note, value }, index) => (
                 <div
                   key={title}
-                  className="sticky top-[120px] bg-[#E4FF1A] text-black rounded-2xl p-6 shadow-xl z-10"
+                  className="sticky top-[120px] bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm hover:border-primary-400/50 hover:bg-white/10 transition-all duration-300 z-10 group"
                 >
-                  <h3 className="text-2xl font-bold">{title}</h3>
-                  <p className="text-lg">{note}</p>
-                  <div className="text-6xl font-extrabold mt-2">{value}</div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-accent-cyan/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl"></div>
+                  <div className="relative">
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2">{title}</h3>
+                    <p className="text-sm md:text-base text-gray-400 mb-4">{note}</p>
+                    <div className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-cyan text-5xl md:text-6xl font-extrabold">{value}</div>
+                  </div>
                 </div>
               ))}
             </div>
 
             {/* Coding timer sits to the right on desktop, below on mobile */}
-            <CodingTimer />
+            <div className="w-full lg:w-auto lg:max-w-md">
+              <CodingTimer />
+            </div>
           </div>
         </section>
 
