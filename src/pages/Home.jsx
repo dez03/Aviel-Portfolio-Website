@@ -7,6 +7,7 @@ import CurrentlyAt from "../components/CurrentlyAt.jsx";
 import GithubChart from "../components/GithubChart.jsx";
 import CodingTimer from "../components/CodingTimer.jsx";
 import TechStack from "../components/TechStack.jsx"
+import NJOutline from "../assets/NJ-Outline.svg";
 
 import "../styles/index.css";
 
@@ -54,7 +55,7 @@ const Home = () => {
           {/* ── Two‑column intro text ─────────────────────────────── */}
           <div className="max-w-3xl mx-auto text-center mb-12 px-4">
             <p className="text-lg md:text-xl leading-relaxed text-gray-300">
-              I'm Aviel, a computer science & philosophy undergrad at <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-cyan font-semibold">UC&nbsp;Santa&nbsp;Cruz</span>. Originally from New Jersey, I moved out to California to open up my world to a different atmosphere and new opportunities. 
+              I'm Aviel, a computer science & philosophy undergrad at <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-cyan font-semibold">UC&nbsp;Santa&nbsp;Cruz</span>. Originally from <span className="inline-flex items-center justify-center gap-1.5">New Jersey<img src={NJOutline} alt="New Jersey" className="inline-block h-[1.3em] w-auto font-semibold opacity-90" /></span>, I moved out to California to open up my world to a different atmosphere and new opportunities. 
             </p>
 
             {/* <p className="text-lg md:text-xl leading-relaxed text-gray-300">
