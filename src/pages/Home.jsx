@@ -13,8 +13,13 @@ import "../styles/index.css";
 const stats = [
   { title: "Next.js & React", note: "Production apps shipped", value: "92%" },
   { title: "AWS & DevOps", note: "Lambda, CI/CD", value: "80%" },
-  { title: "Hackathons Run and Won", note: "800+ Participants, $250,000+ in Prizes, $7000+ Raised, 27 Sponsors", value: "7" },
+  { 
+    title: "Hackathons Organized", 
+    note: "800+ Participants, $349,204+ in Prizes, $7000+ Raised, 31 Sponsors, 130+ Project Submissions", 
+    value: "2" 
+  },
 ];
+
 
 
 const Home = () => {
