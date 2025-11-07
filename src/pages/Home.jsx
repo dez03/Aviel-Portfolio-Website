@@ -47,13 +47,15 @@ const Home = () => {
 
         <section className="w-full max-w-[1080px] mx-auto mb-20">
           {/* ── Two‑column intro text ─────────────────────────────── */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          <div className="max-w-3xl mx-auto text-center mb-12 px-4">
             <p className="text-lg md:text-xl leading-relaxed text-gray-300">
-              I turn relentless curiosity into code that makes life easier—learning from every book, byte, and conversation along the way.
+              I'm Aviel, a computer science & philosophy undergrad at <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-cyan font-semibold">UC&nbsp;Santa&nbsp;Cruz</span>. Originally from New Jersey, I moved out to California to open up my world to a different atmosphere and new opportunities. 
             </p>
-            <p className="text-lg md:text-xl leading-relaxed text-gray-300">
-              I'm a Computer&nbsp;Science &amp; Philosophy undergrad at <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-cyan font-semibold">UC&nbsp;Santa&nbsp;Cruz</span>, an Amazon Future Engineer scholar, and a previous AWS SDE intern. Organizing 400‑person hackathons, shipping side‑projects like <em className="text-primary-400">bioTunes</em> and the award‑winning <em className="text-primary-400">Mindweave.org</em>, and competing in D1A rugby have taught me to merge rigorous engineering with real‑world impact.
-            </p>
+
+            {/* <p className="text-lg md:text-xl leading-relaxed text-gray-300">
+              I love to code, workout, read, and solve Rubik’s Cubes.
+              an Amazon Future Engineer scholar, and a previous AWS SDE intern. Organizing 400‑person hackathons, shipping side‑projects like <em className="text-primary-400">bioTunes</em> and the award‑winning <em className="text-primary-400">Mindweave.org</em>, and competing in D1A rugby have taught me to merge rigorous engineering with real‑world impact.
+            </p> */}
           </div>
 
           {/* ── Stats cards + coding timer ───────────────────────── */}
