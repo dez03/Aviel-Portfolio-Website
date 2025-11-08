@@ -45,3 +45,23 @@
 ::-webkit-scrollbar-track { background: #0a0a0a; }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 5px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+
+/* For Tech Stack Icons */
+@keyframes infinite-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% / 3));
+  }
+}
+
+.animate-infinite-scroll {
+  animation: infinite-scroll 20s linear infinite;
+  width: max-content;
+}
+
+.animate-infinite-scroll:hover {
+  animation-play-state: paused;
+}

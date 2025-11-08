@@ -24,7 +24,7 @@ const Map = () => {
         doubleClickZoom: true,
       });
 
-      // Add dark tile layer to match site theme
+      // dark tile layer to match site theme
       L.tileLayer(
         "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
         {
@@ -32,14 +32,15 @@ const Map = () => {
           updateWhenIdle: true,
           updateWhenZooming: false,
           keepBuffer: 2,
+          className: "map-tiles", // class for custom styling
         }
       ).addTo(mapInstanceRef.current);
 
-      // Add custom zoom control
+      //  custom zoom control
       const zoomControl = L.control.zoom({ position: "bottomleft" });
       zoomControl.addTo(mapInstanceRef.current);
 
-      // Style the zoom control buttons for contrast
+      //  zoom control buttons styling
       const zoomButtons = document.querySelectorAll(".leaflet-control-zoom a");
       zoomButtons.forEach((button) => {
         button.style.backgroundColor = "#0f1118";
@@ -59,7 +60,7 @@ const Map = () => {
       });
 
       // Add the green circle at the fixed location
-      const locationCoords = [36.9924592, -122.0517721]; // Your location coordinates
+      const locationCoords = [36.996659, -122.055175]; // Your location coordinates
       L.circle(locationCoords, {
         color: "#5ce65ccc",
         fillColor: "#5ce65c66",

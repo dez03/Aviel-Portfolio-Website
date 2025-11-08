@@ -8,6 +8,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      zIndex: {
+        '-10': '-10',
+        '0': '0',
+        '10': '10',
+      },
       colors: {
         primary: {
           50: '#ecfeff',
