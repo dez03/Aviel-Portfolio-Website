@@ -24,10 +24,12 @@ const App = () => {
         {/* Background - Fixed positioning */}
         <div 
           className="fixed inset-0 w-full h-full"
-          style={{ zIndex: 0 }}
+          style={{ zIndex: 0,
+                  pointerEvents: 'auto'
+           }}
         >
           <LiquidEther
-            colors={['#5227FF', '#FF9FFC', '#B19EEF']}
+            colors={['#22D3EE', '#A78BFA', '#F472B6']}
             mouseForce={20}
             cursorSize={100}
             isViscous={false}
@@ -40,13 +42,17 @@ const App = () => {
             autoSpeed={0.5}
             autoIntensity={2.2}
             takeoverDuration={0.25}
-            autoResumeDelay={3000}
+            autoResumeDelay={1000}
             autoRampDuration={0.6}
           />
         </div>
 
         {/* Content - Higher z-index */}
-        <div className="relative flex justify-center" style={{ zIndex: 10 }}>
+        <div className="relative flex justify-center" 
+              style={{ 
+                zIndex: 10,
+                pointerEvents: 'auto'
+              }}>
           <div className="App max-w-[1250px] w-full px-4 md:px-6">
             <Routes>
               <Route path="/" element={<Home />} />

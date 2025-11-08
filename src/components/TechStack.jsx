@@ -14,27 +14,25 @@ import {
   SiScikitlearn, 
   SiPandas 
 } from 'react-icons/si';
+import LogoLoop from './LogoLoop';
 
 const techIcons = [
-  { Icon: SiPython, name: 'Python', color: '#3776AB' },
-  { Icon: SiJavascript, name: 'JavaScript', color: '#F7DF1E' },
-  { Icon: SiTypescript, name: 'TypeScript', color: '#3178C6' },
-  { Icon: SiC, name: 'C', color: '#A8B9CC' },
-  { Icon: SiNodedotjs, name: 'Node.js', color: '#339933' },
-  { Icon: SiReact, name: 'React', color: '#61DAFB' },
-  { Icon: SiNextdotjs, name: 'Next.js', color: '#FFFFFF' },
-  { Icon: SiTailwindcss, name: 'Tailwind', color: '#06B6D4' },
-  { Icon: SiGit, name: 'Git', color: '#F05032' },
-  { Icon: SiDocker, name: 'Docker', color: '#2496ED' },
-  { Icon: SiNumpy, name: 'NumPy', color: '#013243' },
-  { Icon: SiScikitlearn, name: 'Scikit-learn', color: '#F7931E' },
-  { Icon: SiPandas, name: 'Pandas', color: '#150458' },
+  { node: <SiPython />, title: 'Python', href: 'https://www.python.org' },
+  { node: <SiJavascript />, title: 'JavaScript', href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
+  { node: <SiTypescript />, title: 'TypeScript', href: 'https://www.typescriptlang.org' },
+  { node: <SiC />, title: 'C', href: 'https://en.wikipedia.org/wiki/C_(programming_language)' },
+  { node: <SiNodedotjs />, title: 'Node.js', href: 'https://nodejs.org' },
+  { node: <SiReact />, title: 'React', href: 'https://react.dev' },
+  { node: <SiNextdotjs />, title: 'Next.js', href: 'https://nextjs.org' },
+  { node: <SiTailwindcss />, title: 'Tailwind CSS', href: 'https://tailwindcss.com' },
+  { node: <SiGit />, title: 'Git', href: 'https://git-scm.com' },
+  { node: <SiDocker />, title: 'Docker', href: 'https://www.docker.com' },
+  { node: <SiNumpy />, title: 'NumPy', href: 'https://numpy.org' },
+  { node: <SiScikitlearn />, title: 'Scikit-learn', href: 'https://scikit-learn.org' },
+  { node: <SiPandas />, title: 'Pandas', href: 'https://pandas.pydata.org' },
 ];
 
 const TechStack = () => {
-  // Triple the array for smooth infinite scroll
-  const triplicatedIcons = [...techIcons, ...techIcons, ...techIcons];
-  
   return (
     <div className="relative flex flex-col justify-between w-full py-6 rounded-2xl bg-white/5 border border-white/10 p-6 overflow-hidden hover:border-primary-400/50 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm group">
       <div className="absolute inset-0 bg-gradient-to-br from-accent-purple/10 to-primary-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -43,37 +41,21 @@ const TechStack = () => {
         <span>Tech Stack</span>
       </div>
 
-      {/* Auto-scrolling carousel */}
-      <div className="relative mb-6 -mx-6 px-6">
-        {/* More subtle left fade */}
-        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[rgb(15,17,24)] via-[rgb(15,17,24)]/60 to-transparent z-10 pointer-events-none"></div>
-        
-        {/* More subtle right fade */}
-        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[rgb(15,17,24)] via-[rgb(15,17,24)]/60 to-transparent z-10 pointer-events-none"></div>
-        
-        {/* Scrolling container */}
-        <div className="flex gap-8 animate-infinite-scroll">
-          {triplicatedIcons.map((tech, index) => (
-            <div
-              key={`${tech.name}-${index}`}
-              className="flex-shrink-0 transition-all duration-300"
-              style={{
-                filter: 'grayscale(100%) brightness(0.5)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.filter = 'grayscale(0%) brightness(1)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.filter = 'grayscale(100%) brightness(0.5)';
-              }}
-            >
-              <tech.Icon 
-                className="w-10 h-10"
-                style={{ color: tech.color }}
-              />
-            </div>
-          ))}
-        </div>
+      {/* Auto-scrolling carousel with LogoLoop */}
+      <div className="relative mb-6 -mx-6">
+        <LogoLoop
+          logos={techIcons}
+          speed={50}
+          direction="left"
+          logoHeight={40}
+          gap={32}
+          pauseOnHover={true}
+          scaleOnHover={true}
+          fadeOut={false}
+          fadeOutColor="rgb(255, 255, 255)"
+          ariaLabel="Technology stack"
+          className="grayscale-[100%] brightness-50 [&_a:hover]:grayscale-0 [&_a:hover]:brightness-100"
+        />
       </div>
 
       <div className="relative mt-2">
