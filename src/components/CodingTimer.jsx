@@ -27,10 +27,10 @@ export default function CodingTimer() {
         <h3 className="text-xl md:text-2xl font-bold">I started coding</h3>
         <p className="text-sm md:text-base opacity-90 mt-1">Tue Sep 15 2020&nbsp;—&nbsp;10:20 pm EST</p>
       </div>
-      <div className="relative z-10 text-right leading-tight font-extrabold text-2xl sm:text-4xl md:text-5xl tabular-nums">
+      <div className="relative z-10 text-right leading-tight font-extrabold text-2xl sm:text-4xl md:text-4xl tabular-nums">
         {years}y&nbsp;{months}m<br className="hidden sm:block" />
         {days}d&nbsp;{hours}h&nbsp;{minutes}m&nbsp;
-        <span className="text-3xl sm:text-5xl md:text-6xl">{String(seconds).padStart(2,"0")}s</span>
+        <span className="text-3xl sm:text-5xl md:text-5xl">{String(seconds).padStart(2,"0")}s</span>
       </div>
     </div>
   );

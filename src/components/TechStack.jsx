@@ -30,6 +30,15 @@ const techIcons = [
   { node: <SiNumpy />, title: 'NumPy', href: 'https://numpy.org' },
   { node: <SiScikitlearn />, title: 'Scikit-learn', href: 'https://scikit-learn.org' },
   { node: <SiPandas />, title: 'Pandas', href: 'https://pandas.pydata.org' },
+
+  // Add MongoDB
+  // FastAPI
+  // RESTAPI
+  // AWS
+  // Java
+  // Firebase
+  // PostgreSQL
+  
 ];
 
 const TechStack = () => {

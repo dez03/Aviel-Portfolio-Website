@@ -12,8 +12,8 @@ import NJOutline from "../assets/NJ-Outline.svg";
 import "../styles/index.css";
 
 const stats = [
-  { title: "Next.js & React", note: "Production apps shipped", value: "92%" },
-  { title: "AWS & DevOps", note: "Lambda, CI/CD", value: "80%" },
+  // { title: "Next.js & React", note: "Production apps shipped", value: "92%" },
+  // { title: "AWS & DevOps", note: "Lambda, CI/CD", value: "80%" },
   { 
     title: "Hackathons Organized", 
     note: "800+ Participants, $349,204+ in Prizes, $7000+ Raised, 31 Sponsors, 130+ Project Submissions", 
